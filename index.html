@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <div style="display: none;"><script type="text/javascript" src="https://s5.cnzz.com/z_stat.php?id=1276886485&web_id=1276886485"></script></div>
+    <!-- <div style="display: none;"><script type="text/javascript" src="https://s5.cnzz.com/z_stat.php?id=1276886485&web_id=1276886485"></script></div> -->
     <ul class="Y"><li>2019年</li></ul>
     <ul class="s"></ul>
     <ul class="m"></ul>
@@ -26,7 +26,8 @@
     <ul class="sx"></ul>
     <ul class="d"></ul>
     <ul class="M"></ul>
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="jquery.3.3.1.min.js"></script>
     <script type="text/javascript">
         var chnNumChar = ["零","一","二","三","四","五","六","七","八","九"];
         var chnUnitSection = ["","万","亿","万亿","亿亿"];
@@ -87,6 +88,21 @@
     </script>
     <script type="text/javascript">
 
+        jQuery.fn.extend({
+            removeCSS: function(cssName) {
+                return this.each(function() {
+
+                    return $(this).attr('style',
+
+                    jQuery.grep($(this).attr('style').split(";"),
+                            function(curCssName) {
+                                if (curCssName.toUpperCase().indexOf(cssName.toUpperCase() + ':') <= 0)
+                                    return curCssName;
+                            }).join(";"));
+                });
+            }
+        });
+        
         function rotate(selector, t) {
             t = +t
             var lis = $(selector)
@@ -94,6 +110,7 @@
                 var rotate = (lis.length - i + t)
                 lis.eq(i).css('transform', 'rotate(' + rotate * 360 / lis.length + 'deg)')
                 rotate % lis.length == 0 && lis.eq(i).css('color', '#fff').siblings().css('color', '#666')
+                // rotate % lis.length == 0 && lis.eq(i).css('color', '#fff').css('border-bottom', '1px solid').siblings().css('color', '#666').removeCSS('border-bottom')
             }
             // 归零
             if (t == lis.length - 1) {
@@ -188,6 +205,10 @@
                 start.y = now.y
             }
         }, 1000)
+    </script>
+    <script type="text/javascript">
+        let yli_width = $('.Y li').width()
+        $('.Y li').append($('<div></div>').css({'width': '420px', 'margin-left':yli_width/2, 'border-bottom':'1px solid', 'position':'fixed'}))
     </script>
 </body>
 </html>
